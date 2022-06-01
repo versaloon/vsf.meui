@@ -48,7 +48,7 @@
 	url = ../nofrendo
 [submodule "application/3rd-party/quickjs/raw"]
 	path = application/3rd-party/quickjs/raw
-	url = ../quickjs
+	url = ../../vsfteam/quickjs-embedded
 [submodule "application/3rd-party/quickjs/MEUI"]
 	path = application/3rd-party/quickjs/MEUI
 	url = https://github.com/ZhUyU1997/MEUI

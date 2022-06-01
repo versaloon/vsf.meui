@@ -1,0 +1,121 @@
+ include/class.h |  2 +-
+ src/main.c      | 52 +++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 52 insertions(+), 2 deletions(-)
+
+diff --git a/include/class.h b/include/class.h
+index 48e5e00..65717f3 100644
+--- a/include/class.h
++++ b/include/class.h
+@@ -51,7 +51,7 @@ void *class_cast(type_index type, void *obj);
+ 	static type_name type_name##_class_init;                                                                                                        \
+ 	constructor(type_name) __attribute__((weak));                                                                                                   \
+ 	destructor(type_name) __attribute__((weak));                                                                                                    \
+-	static struct class_table_info type_name##class_table_info __attribute((aligned(8))) __attribute__((__used__, __section__(".class.table"))) = { \
++	struct class_table_info type_name##class_table_info __attribute((aligned(8))) __attribute__((__used__, __section__(".class.table"))) = {		\
+ 		.name = #type_name,                                                                                                                         \
+ 		.pointer_type = &type_name##_class_type,                                                                                                    \
+ 		.pointer_parent_type = &parent_type_name##_class_type,                                                                                      \
+diff --git a/src/main.c b/src/main.c
+index 1cf5714..6b9c9b1 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -18,7 +18,7 @@
+ #include <time.h>
+ 
+ #include <meui.h>
+-
++//#define MEUI_DUMP_BYTECODE
+ #ifdef PROFILE
+ #include <gperftools/profiler.h>
+ #endif
+@@ -32,7 +32,9 @@ static JSContext *JS_NewCustomContext(JSRuntime *rt)
+         return NULL;
+     JS_AddIntrinsicBaseObjects(ctx);
+     JS_AddIntrinsicDate(ctx);
++#ifdef MEUI_DUMP_BYTECODE
+     JS_AddIntrinsicEval(ctx);
++#endif
+     JS_AddIntrinsicStringNormalize(ctx);
+     JS_AddIntrinsicRegExp(ctx);
+     JS_AddIntrinsicJSON(ctx);
+@@ -48,6 +50,25 @@ static JSContext *JS_NewCustomContext(JSRuntime *rt)
+     return ctx;
+ }
+ 
++#ifdef MEUI_DUMP_BYTECODE
++static int dump_hex(char *str, const uint8_t *buf, size_t len)
++{
++    char *orig = str;
++    size_t i, col;
++    col = 0;
++    for(i = 0; i < len; i++) {
++        str += sprintf(str, " 0x%02x,", buf[i]);
++        if (++col == 8) {
++            str += sprintf(str, "\n");
++            col = 0;
++        }
++    }
++    if (col != 0)
++        str += sprintf(str, "\n");
++    return str - orig;
++}
++#endif
++
+ static int eval_buf(JSContext *ctx, const void *buf, int buf_len,
+                     const char *filename, int eval_flags)
+ {
+@@ -58,6 +79,24 @@ static int eval_buf(JSContext *ctx, const void *buf, int buf_len,
+                   eval_flags | JS_EVAL_FLAG_COMPILE_ONLY);
+     if (!JS_IsException(val))
+     {
++#ifdef MEUI_DUMP_BYTECODE
++        uint8_t *out_buf;
++        size_t out_buf_len;
++        int flags = JS_WRITE_OBJ_BYTECODE;
++        out_buf = JS_WriteObject(ctx, &out_buf_len, val, flags);
++        if (out_buf != NULL) {
++            FILE * fo = fopen("out.c", "w");
++            char *outbuf = malloc(10 * 1024 * 1024), *str = outbuf;
++    
++            str += sprintf(str, "const uint8_t bytecode[%u] = {\n",
++                    (unsigned int)out_buf_len);
++            str += dump_hex(str, out_buf, out_buf_len);
++            str += sprintf(str, "};\n\n");
++            fwrite(outbuf, strlen(outbuf), 1, fo);
++
++            js_free(ctx, out_buf);
++        }
++#endif
+         js_module_set_import_meta(ctx, val, TRUE, TRUE);
+         val = JS_EvalFunction(ctx, val);
+     }
+@@ -94,6 +133,10 @@ static int eval_file(JSContext *ctx, const char *filename)
+     return ret;
+ }
+ 
++#ifndef MEUI_DUMP_BYTECODE
++#include "out.c"
++#endif
++
+ int main(int argc, char **argv)
+ {
+ #ifdef PROFILE
+@@ -108,11 +151,18 @@ int main(int argc, char **argv)
+     rt = JS_NewRuntime();
+     js_std_set_worker_new_context_func(JS_NewCustomContext);
+     js_std_init_handlers(rt);
++#ifdef MEUI_DUMP_BYTECODE
+     JS_SetModuleLoaderFunc(rt, NULL, js_module_loader, NULL);
++#endif
+     ctx = JS_NewCustomContext(rt);
+     js_std_add_helpers(ctx, argc, argv);
+ 
++#ifdef MEUI_DUMP_BYTECODE
+     eval_file(ctx, argv[1]);
++#else
++    js_std_eval_binary(ctx, bytecode, sizeof(bytecode), 0);
++#endif
++
+     js_std_loop(ctx);
+     JS_FreeContext(ctx);
+     JS_FreeRuntime(rt);

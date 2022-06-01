@@ -1,53 +1,28 @@
-# vsf.linux
-Porting linux applications to VSF
+# vsf.meui
+Testing/developping/debugging MEUI on VSF
 
-## Prepare
-1. PC
-    - Windows 10 or later
-    - Visual Studio 2022
-    - npcap
+# windows.meui @ project/vc_quickjs
 
-## x86/x64
-### submodules
+## submodules
 1. vsf
-    - PLOOC
-    - zlib
-    - mbedlts
-2. ncurses
-3. less
-4. curl
-
-## aic8800m @ project/cmake/aic8800
-### submodules
-1. vsf
-    - PLOOC
-    - CMSIS
-    - AIC8800M/vendor
-    - mbedtls
-    - btstack
-2. curl
-
-## aic8800m.meui @ project/cmake/aic8800.meui
-1. vsf
-    - PLOOC
-    - CMSIS
-    - AIC8800M/vendor
-    - mbedtls
-    - btstack
+   - PLOOC
 2. quickjs
 3. quickjs/MEUI
 
-## WebAssembly
-### submodules
-1. vsf
-   - PLOOC
-   - mbedtls
-2. curl
-### patches
-1. /patch/vsf/webassembly.patch to /vsf
+## patches
+1. quickjs/MEUI
+   - patch/meui/all.patch
 
-## WAMR
-### submodules
+# aic8800m.meui @ project/cmake/aic8800.meui
+
+## submodules
 1. vsf
-   - PLOOC
-2. wamr
+    - PLOOC
+    - CMSIS
+    - AIC8800M/vendor
+2. quickjs
+3. quickjs/MEUI
+
+## patches
+1. quickjs/MEUI
+   - patch/meui/all.patch

@@ -1,0 +1,16 @@
+ include/class.h |  2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/include/class.h b/include/class.h
+index 48e5e00..65717f3 100644
+--- a/include/class.h
++++ b/include/class.h
+@@ -51,7 +51,7 @@ void *class_cast(type_index type, void *obj);
+ 	static type_name type_name##_class_init;                                                                                                        \
+ 	constructor(type_name) __attribute__((weak));                                                                                                   \
+ 	destructor(type_name) __attribute__((weak));                                                                                                    \
+-	static struct class_table_info type_name##class_table_info __attribute((aligned(8))) __attribute__((__used__, __section__(".class.table"))) = { \
++	struct class_table_info type_name##class_table_info __attribute((aligned(8))) __attribute__((__used__, __section__(".class.table"))) = {		\
+ 		.name = #type_name,                                                                                                                         \
+ 		.pointer_type = &type_name##_class_type,                                                                                                    \
+ 		.pointer_parent_type = &parent_type_name##_class_type,                                                                                      \

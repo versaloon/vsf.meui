@@ -62,14 +62,14 @@
 #define VSF_HAL_USE_DEBUG_STREAM                        ENABLED
 
 // AIC8800 demos
-#define AIC8800_APP_USE_WIFI_DEMO                       ENABLED
-#define AIC8800_APP_USE_BT_DEMO                         ENABLED
-#   define APP_USE_BTSTACK_DEMO                         ENABLED
-#       define VSF_USE_BTSTACK                          ENABLED
+#define AIC8800_APP_USE_WIFI_DEMO                       DISABLED
+#define AIC8800_APP_USE_BT_DEMO                         DISABLED
+#   define APP_USE_BTSTACK_DEMO                         DISABLED
+#       define VSF_USE_BTSTACK                          DISABLED
 
 // component configure
-#define VSF_USE_LWIP                                    ENABLED
-#define VSF_USE_WIFI                                    ENABLED
+#define VSF_USE_LWIP                                    DISABLED
+#define VSF_USE_WIFI                                    DISABLED
 
 #define VSF_USE_HEAP                                    ENABLED
 #   define VSF_HEAP_CFG_MCB_MAGIC_EN                    ENABLED
