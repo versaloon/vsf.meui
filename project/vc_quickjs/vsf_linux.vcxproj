@@ -442,7 +442,6 @@
     <ClCompile Include="..\..\vsf\example\template\demo\linux_demo\mount_demo.c" />
     <ClCompile Include="..\..\vsf\example\template\demo\linux_demo\ntpdate_demo.c" />
     <ClCompile Include="..\..\vsf\example\template\demo\linux_demo\telnetd_demo.c" />
-    <ClCompile Include="..\..\vsf\example\template\demo\lwip_demo\lwip_demo.c" />
     <ClCompile Include="..\..\vsf\example\template\demo\scsi_demo\scsi_demo.c" />
     <ClCompile Include="..\..\vsf\source\component\av\audio\decoder\wav\vsf_wav.c" />
     <ClCompile Include="..\..\vsf\source\component\av\audio\driver\winsound\vsf_winsound.c" />
@@ -721,7 +720,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>__VSF__;__CPU_X86__;__WIN__;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;VSF_USE_QUICKJS=ENABLED;CONFIG_VERSION="unknown";APP_USE_MEUI_DEMO=ENABLED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__VSF__;__CPU_X86__;__WIN__;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;VSF_USE_QUICKJS=ENABLED;CONFIG_VERSION="unknown";CONFIG_NO_EVAL;APP_USE_MEUI_DEMO=ENABLED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\application;$(ProjectDir)..\..\application\3rd-party\quickjs\MEUI\include;$(ProjectDir)..\..\application\3rd-party\quickjs\MEUI\lib\flex\include;$(ProjectDir)..\..\application\3rd-party\quickjs\MEUI\lib\hashmap\include;$(ProjectDir)..\..\application\3rd-party\quickjs\MEUI\lib\plutosvg\include;$(ProjectDir)..\..\application\3rd-party\quickjs\MEUI\lib\plutovg\include;$(ProjectDir)..\..\application\3rd-party\quickjs\MEUI\lib\plutovg\3rdparty\software;$(ProjectDir)..\..\application\3rd-party\quickjs\MEUI\lib\pqueue;$(ProjectDir)..\..\application\3rd-party\quickjs\MEUI\lib\stb\include;$(ProjectDir)..\..\application\3rd-party\quickjs\raw;$(ProjectDir)..\..\config\3rd-party;$(ProjectDir)..\..\vsf\example\template\demo\common;$(ProjectDir)..\..\vsf\source;$(ProjectDir)..\..\vsf\source\shell\sys\linux\include;$(ProjectDir)..\..\vsf\source\shell\sys\linux\include\simple_libc;$(ProjectDir)..\..\vsf\source\shell\sys\linux\include\libusb;$(ProjectDir)..\..\vsf\source\shell\sys\linux\kernel\fs\vfs\files\terminfo;$(ProjectDir)..\..\config;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-fms-extensions %(AdditionalOptions)</AdditionalOptions>

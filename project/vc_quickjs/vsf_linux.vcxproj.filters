@@ -592,9 +592,6 @@
     <Filter Include="application\linux_demo">
       <UniqueIdentifier>{6513e7a6-e11a-4355-918f-bb18f7826795}</UniqueIdentifier>
     </Filter>
-    <Filter Include="application\lwip_demo">
-      <UniqueIdentifier>{250cfb9d-06ba-45b7-92df-93b4be102974}</UniqueIdentifier>
-    </Filter>
     <Filter Include="application\3rd-party">
       <UniqueIdentifier>{bff067ae-7ad6-42c8-8d4f-be9441b9c908}</UniqueIdentifier>
     </Filter>
@@ -2290,9 +2287,6 @@
     </ClCompile>
     <ClCompile Include="..\..\vsf\example\template\demo\linux_demo\mount_demo.c">
       <Filter>application\linux_demo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\vsf\example\template\demo\lwip_demo\lwip_demo.c">
-      <Filter>application\lwip_demo</Filter>
     </ClCompile>
     <ClCompile Include="..\..\application\vsf_main.c">
       <Filter>application</Filter>
